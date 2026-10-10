@@ -1,0 +1,14 @@
+/* Минимальная раскладка: без декоративных цветов, эффектов и анимации. */
+body { max-width: 960px; margin: 24px auto; padding: 0 16px; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.5; }
+header, main, footer { margin-bottom: 24px; }
+nav ul { display: flex; flex-wrap: wrap; gap: 24px; padding-left: 20px; }
+section { margin: 24px 0; }
+fieldset { padding: 16px; }
+label { display: block; margin-top: 12px; }
+input, select, textarea { box-sizing: border-box; max-width: 100%; width: 100%; padding: 6px; font: inherit; }
+button { padding: 6px 10px; margin: 4px 4px 4px 0; font: inherit; }
+.task-list { padding-left: 24px; }
+.task-list li { margin-bottom: 24px; }
+dt { font-weight: bold; }
+dd { margin-left: 0; margin-bottom: 8px; }
+h1, h2, h3 { line-height: 1.2; }
