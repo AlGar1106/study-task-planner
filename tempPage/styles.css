@@ -1,14 +1,153 @@
-/* Минимальная раскладка: без декоративных цветов, эффектов и анимации. */
-body { max-width: 960px; margin: 24px auto; padding: 0 16px; font-family: Arial, sans-serif; font-size: 16px; line-height: 1.5; }
-header, main, footer { margin-bottom: 24px; }
-nav ul { display: flex; flex-wrap: wrap; gap: 24px; padding-left: 20px; }
-section { margin: 24px 0; }
-fieldset { padding: 16px; }
-label { display: block; margin-top: 12px; }
-input, select, textarea { box-sizing: border-box; max-width: 100%; width: 100%; padding: 6px; font: inherit; }
-button { padding: 6px 10px; margin: 4px 4px 4px 0; font: inherit; }
-.task-list { padding-left: 24px; }
-.task-list li { margin-bottom: 24px; }
-dt { font-weight: bold; }
-dd { margin-left: 0; margin-bottom: 8px; }
-h1, h2, h3 { line-height: 1.2; }
+/* 1. Общие настройки и цвета интерфейса */
+:root {
+  color-scheme: light;
+  --page: #f3f5f9;
+  --surface: #ffffff;
+  --ink: #202c43;
+  --muted: #57657c;
+  --line: #dbe2ed;
+  --accent: #345bc5;
+  --accent-dark: #234399;
+  --radius: 1rem;
+}
+* { box-sizing: border-box; }
+html { scroll-padding-top: 1.5rem; }
+body {
+  margin: 0;
+  background: var(--page);
+  color: var(--ink);
+  font: 1rem/1.55 system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+a { color: var(--accent); text-underline-offset: .2em; }
+button, input, select, textarea { font: inherit; }
+button, input, select, textarea, a { -webkit-tap-highlight-color: transparent; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+h1, h2, h3, p, dl { margin: 0; }
+h1, h2, h3 { line-height: 1.25; overflow-wrap: anywhere; }
+.skip-link {
+  position: absolute;
+  top: .75rem;
+  left: 1rem;
+  z-index: 2;
+  padding: .7rem 1rem;
+  background: var(--surface);
+  transform: translateY(-200%);
+}
+.skip-link:focus { transform: translateY(0); }
+
+/* 2. Шапка и навигация */
+.site-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem 2rem;
+  padding: 1.25rem max(1.25rem, calc((100% - 75rem) / 2));
+  background: #202e4c;
+  color: #ffffff;
+}
+.brand { max-width: 17rem; font-size: 1.05rem; line-height: 1.3; }
+.site-nav { flex: 1; }
+.nav-list { display: flex; flex-wrap: wrap; gap: .5rem; padding: 0; margin: 0; list-style: none; }
+.nav-list a { display: block; padding: .65rem .85rem; border-radius: .6rem; color: #e0e7f8; text-decoration: none; }
+.nav-list a[aria-current="page"] { background: #3b4e75; color: #ffffff; }
+.nav-list a:hover { background: #354769; }
+.site-header :focus-visible { outline-color: #b9ccff; }
+.account { display: flex; align-items: center; flex-wrap: wrap; gap: .7rem; font-size: .8rem; }
+
+/* 3. Раскладка страницы: список и форма рядом на широком экране */
+.workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(18rem, 1fr);
+  align-items: start;
+  gap: 1.5rem;
+  width: min(100% - 2.5rem, 75rem);
+  margin: 2.5rem auto;
+}
+.page-title, .page-intro, .demo-notice, .filters-panel { grid-column: 1 / -1; }
+.page-title { font-size: clamp(1.8rem, 3vw, 2.4rem); letter-spacing: -.035em; }
+.page-intro { color: var(--muted); margin-top: -1rem; }
+.demo-notice { padding: .9rem 1.1rem; border: 1px solid #cfdbf4; border-radius: .7rem; background: #eaf0fc; color: #354c78; font-size: .875rem; }
+.panel { min-width: 0; padding: 1.5rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.section-title { margin-bottom: .65rem; font-size: 1.25rem; letter-spacing: -.02em; }
+.section-description { color: var(--muted); font-size: .875rem; margin-bottom: 1.25rem; }
+.tasks-section { min-width: 0; }
+.create-panel { align-self: start; }
+
+/* 4. Поля и кнопки */
+.form-fields { min-width: 0; padding: 0; margin: 1rem 0 0; border: 0; }
+.form-legend { padding: 0; margin-bottom: .75rem; font-size: .8rem; font-weight: 650; color: var(--muted); }
+.filter-grid { display: grid; grid-template-columns: minmax(0, 1.5fr) repeat(3, minmax(0, 1fr)); gap: 1rem; }
+.form-field { min-width: 0; margin-bottom: 1rem; }
+.filter-grid .form-field { margin-bottom: 0; }
+.form-field label { display: block; margin-bottom: .45rem; font-size: .875rem; font-weight: 600; }
+.form-field input, .form-field select, .form-field textarea {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 2.8rem;
+  padding: .65rem .75rem;
+  border: 1px solid #bcc8d9;
+  border-radius: .55rem;
+  background: var(--surface);
+  color: var(--ink);
+}
+.form-field input::placeholder { color: #657187; opacity: 1; }
+.form-field textarea { resize: vertical; }
+.form-field input:hover, .form-field select:hover, .form-field textarea:hover { border-color: #7a8ba7; }
+.form-actions, .task-actions { display: flex; flex-wrap: wrap; gap: .6rem; }
+.filter-grid .form-actions { grid-column: 1 / -1; }
+.form-hint { margin-bottom: 1rem; color: var(--muted); font-size: .8rem; }
+.button { min-height: 2.75rem; padding: .6rem .9rem; border: 1px solid var(--line); border-radius: .55rem; font-size: .875rem; font-weight: 600; line-height: 1.35; cursor: pointer; }
+.button--secondary { background: #f7f9fc; color: #364764; }
+.button--primary { border-color: var(--accent); background: var(--accent); color: #ffffff; }
+.button--danger { border-color: #efcdd0; background: #fff5f5; color: #983a45; }
+.button--secondary:hover:enabled { border-color: #8d9db5; background: #edf1f8; }
+.button--primary:hover:enabled { background: var(--accent-dark); }
+.button:disabled { cursor: not-allowed; opacity: .62; }
+.account .button { min-height: 2.3rem; padding: .4rem .7rem; }
+
+/* 5. Карточки задач и статусы. Смысл статуса передаётся и текстом. */
+.task-list { display: grid; gap: 1rem; padding: 0; margin: 0; list-style: none; }
+.task-card { padding: 1.5rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.task-title { margin-bottom: 1rem; font-size: 1.1rem; }
+.task-meta { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .75rem; margin-bottom: 1rem; }
+.meta-item { min-width: 0; }
+.meta-item dt { margin-bottom: .4rem; color: var(--muted); font-size: .75rem; }
+.meta-item dd { margin: 0; font-size: .85rem; overflow-wrap: anywhere; }
+.status { display: inline-block; width: fit-content; padding: .2rem .55rem; border-radius: .4rem; font-size: .75rem; font-weight: 650; }
+.status--progress { color: #795212; background: #fff0ca; }
+.status--planned { color: #315398; background: #eaf0ff; }
+.status--completed { color: #216548; background: #e1f3e9; }
+.overdue-label { width: fit-content; margin-bottom: .7rem; padding: .2rem .55rem; border-radius: .4rem; color: #9b3040; background: #ffebed; font-size: .75rem; }
+.task-description { margin-bottom: 1.25rem; color: var(--muted); font-size: .9rem; overflow-wrap: anywhere; }
+.task-actions { padding-top: 1rem; border-top: 1px solid var(--line); }
+.site-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .75rem; width: min(100% - 2.5rem, 75rem); margin: 0 auto; padding: 1.5rem 0 2rem; border-top: 1px solid var(--line); color: var(--muted); font-size: .8rem; }
+
+/* 6. Планшет: фильтры в две колонки, форма под списком */
+@media (max-width: 64rem) {
+  .site-nav { flex: initial; }
+  .account { margin-left: auto; }
+  .filter-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 50rem) {
+  .workspace { grid-template-columns: minmax(0, 1fr); margin-top: 1.75rem; }
+  .account { width: 100%; margin-left: 0; }
+}
+
+/* 7. Телефон: поля и метаданные вертикально, удобные кнопки */
+@media (max-width: 35rem) {
+  .site-header { padding: 1rem; gap: 1rem; }
+  .brand { max-width: none; }
+  .site-nav { width: 100%; }
+  .nav-list { gap: .25rem; }
+  .nav-list a { padding: .6rem .7rem; }
+  .workspace { width: calc(100% - 2rem); gap: 1.1rem; }
+  .panel, .task-card { padding: 1rem; }
+  .filter-grid { grid-template-columns: minmax(0, 1fr); }
+  .task-meta { grid-template-columns: minmax(0, 1fr); gap: .75rem; }
+  .meta-item { display: grid; grid-template-columns: 6rem minmax(0, 1fr); align-items: start; gap: .5rem; }
+  .meta-item dt { margin-bottom: 0; }
+  .form-actions .button { flex: 1 1 8rem; }
+  .task-actions .button { flex: 1 1 7rem; }
+  .site-footer { width: calc(100% - 2rem); }
+}
