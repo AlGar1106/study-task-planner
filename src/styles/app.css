@@ -1,17 +1,64 @@
 /* Работающая версия использует оформление лабораторной №5. */
-.storage-error, .feedback { grid-column: 1 / -1; }
-.storage-error { border-color: #b24654; }
-.storage-error .form-actions { margin-top: 1rem; }
-.feedback { padding: .8rem 1rem; border-radius: .6rem; overflow-wrap: anywhere; }
-.feedback:empty { display: none; }
-.feedback--success { color: #216548; background: #e1f3e9; }
-.feedback--error, .field-error { color: #9b3040; }
-.feedback--error { background: #ffebed; }
-.field-error { display: block; margin-top: .4rem; font-size: .875rem; }
-[aria-invalid="true"] { border-color: #9b3040; }
-.empty-state p { margin: .75rem 0; color: var(--muted); }
-.task-description { white-space: pre-wrap; }
-.delete-dialog { width: min(30rem, calc(100% - 2rem)); padding: 1.5rem; border: 1px solid var(--line); border-radius: var(--radius); color: var(--ink); }
-.delete-dialog::backdrop { background: rgb(20 30 50 / 45%); }
-.delete-dialog p { margin-top: 1rem; overflow-wrap: anywhere; }
-@media (max-width: 35rem) { .account { font-size: .8rem; } }
+.storage-error,
+.feedback {
+  grid-column: 1 / -1;
+}
+.storage-error {
+  border-color: #b24654;
+}
+.storage-error .form-actions {
+  margin-top: 1rem;
+}
+.feedback {
+  padding: 0.8rem 1rem;
+  border-radius: 0.6rem;
+  overflow-wrap: anywhere;
+}
+.feedback:empty {
+  display: none;
+}
+.feedback--success {
+  color: #216548;
+  background: #e1f3e9;
+}
+.feedback--error,
+.field-error {
+  color: #9b3040;
+}
+.feedback--error {
+  background: #ffebed;
+}
+.field-error {
+  display: block;
+  margin-top: 0.4rem;
+  font-size: 0.875rem;
+}
+[aria-invalid="true"] {
+  border-color: #9b3040;
+}
+.empty-state p {
+  margin: 0.75rem 0;
+  color: var(--muted);
+}
+.task-description {
+  white-space: pre-wrap;
+}
+.delete-dialog {
+  width: min(30rem, calc(100% - 2rem));
+  padding: 1.5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink);
+}
+.delete-dialog::backdrop {
+  background: rgb(20 30 50 / 45%);
+}
+.delete-dialog p {
+  margin-top: 1rem;
+  overflow-wrap: anywhere;
+}
+@media (max-width: 35rem) {
+  .account {
+    font-size: 0.8rem;
+  }
+}
